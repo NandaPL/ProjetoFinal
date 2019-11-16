@@ -1,20 +1,24 @@
 import pygame
-
-<<<<<<< HEAD
+import sprites
 pygame.init()
-screen = pygame.display.set_mode((600,350))
+screen = pygame.display.set_mode((300, 300))
 pygame.display.set_caption('Projeto Final')
 pygame.display.flip()
+SPRITES = "sprites/"
+
+background = pygame.image.load(
+SPRITES+"background-menu.png").convert_alpha()
+
+def redraw_menu():
+    screen.blit(background, (0, 0))
+    
+
 
 run = init = True
 
+
 while run:
     if init:
-        screen
-
-    pygame.display.update()
-=======
-print("fala rapaziada")
-
-pygame.init()
->>>>>>> f4963adb76904a436ddedbdd784fad19f1c2b9ad
+        redraw_menu()
+        
+        pygame.display.update()
