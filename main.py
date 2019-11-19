@@ -20,7 +20,7 @@ altura = 450
 screen = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Projeto Final')
 
-background = load_imagem("sprites/background-menu(800:450).jpg")
+background = load_imagem("sprites/battle.jpg")
 knight = load_imagem("sprites/Knight/knight.png")
 
 # aqui eu estou setando um tempo de 1000 milisegundos para esse evento
@@ -34,7 +34,7 @@ clock = pygame.time.Clock()
 counter, text = 180000, ' 03:00'.rjust(3) # 3 minutos equivale a 180.000 milisegundos
 # Não lembro pq coloquei em milisegundos mas ta funcionando !!!! hehe
 
-x, y = 0, 300 # posição inicial do personagem
+x, y = 0, 220 # posição inicial do personagem
 
 run = init = True
 
@@ -76,7 +76,7 @@ while run:
 
     redraw_background() # redesenhando a tela de fundo
     redraw_knight(x, y) # redesenhando o personagem na posição (x, y)
-
+    
     screen.blit(font.render(text, True, WHITE), [600, 0]) # desenhando o cronometro na tela
 
     pygame.display.flip() # Atualizando a tela
