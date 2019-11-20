@@ -1,13 +1,12 @@
 import pygame
+import intro
 import sprites
-pygame.init()
 
-def redraw_background():
-    screen.blit(background, (0, 0))
+pygame.init()
 
 # função pra facilitar o carregamento da imagem
 def load_imagem(caminho):
-    return pygame.image.load(caminho).convert_alpha()
+   return pygame.image.load(caminho).convert_alpha()
 
 def redraw_knight(x, y):
     screen.blit(knight, (x, y))
@@ -15,13 +14,12 @@ def redraw_knight(x, y):
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-largura = 800
-altura = 450
-screen = pygame.display.set_mode((largura, altura))
+width = 800
+height = 450
+screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Projeto Final')
 
-background = load_imagem("sprites/battle.jpg")
-knight = load_imagem("sprites/Knight/knight.png")
+#knight = load_imagem("sprites/Knight/knight.png")
 
 # aqui eu estou setando um tempo de 1000 milisegundos para esse evento
 # ser chamado a cada segundo
@@ -36,9 +34,13 @@ counter, text = 180000, ' 03:00'.rjust(3) # 3 minutos equivale a 180.000 miliseg
 
 x, y = 0, 220 # posição inicial do personagem
 
-run = init = True
+run = True
+initial = True
 
 while run:
+
+    if initial:
+        intro.menu(screen)
     
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT: # esse evento acontece ao decorrer de 1 segundo
@@ -74,8 +76,8 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    redraw_background() # redesenhando a tela de fundo
-    redraw_knight(x, y) # redesenhando o personagem na posição (x, y)
+    #redraw_background() # redesenhando a tela de fundo
+    #redraw_knight(x, y) # redesenhando o personagem na posição (x, y)
     
     screen.blit(font.render(text, True, WHITE), [600, 0]) # desenhando o cronometro na tela
 
