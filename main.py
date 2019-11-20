@@ -1,25 +1,24 @@
 import pygame
-import intro
 import sprites
 
 pygame.init()
-
-# função pra facilitar o carregamento da imagem
-def load_imagem(caminho):
-   return pygame.image.load(caminho).convert_alpha()
-
-def redraw_knight(x, y):
-    screen.blit(knight, (x, y))
-
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
 width = 800
 height = 450
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Projeto Final')
 
-#knight = load_imagem("sprites/Knight/knight.png")
+# função pra facilitar o carregamento da imagem
+def load_imagem(image):
+    return pygame.image.load(image).convert_alpha()
+
+button_play = load_imagem("sprites/play.jpg")
+
+button_credits = load_imagem("sprites/credit.jpg")
+
+back_menu = load_imagem("sprites/background.jpg")
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
 # aqui eu estou setando um tempo de 1000 milisegundos para esse evento
 # ser chamado a cada segundo
@@ -28,11 +27,19 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 # aqui eu defino uma fonte
 font = pygame.font.SysFont(None, 55)
 
+#3 minutos equivale a 180.000 milisegundos
 clock = pygame.time.Clock()
-counter, text = 180000, ' 03:00'.rjust(3) # 3 minutos equivale a 180.000 milisegundos
-# Não lembro pq coloquei em milisegundos mas ta funcionando !!!! hehe
+counter, text = 180000, ' 03:00'.rjust(3)
 
-x, y = 0, 220 # posição inicial do personagem
+# posição inicial do personagem
+x, y = 0, 220 
+
+def menu(screen):
+	global play_press, credits_press
+
+	screen.blit(back_menu, (0,0))
+	play_press = screen.blit(button_play, (300, 150))
+	credits_press = screen.blit(button_credits, (600, 380))
 
 run = True
 initial = True
@@ -40,10 +47,10 @@ initial = True
 while run:
 
     if initial:
-        intro.menu(screen)
+        menu(screen)
     
     for event in pygame.event.get():
-        if event.type == pygame.USEREVENT: # esse evento acontece ao decorrer de 1 segundo
+        '''if event.type == pygame.USEREVENT: # esse evento acontece ao decorrer de 1 segundo
             counter -= 1000 # retiro 1 segundo
             if counter >= 0:
                 # convertendo para o formato mm:ss
@@ -70,16 +77,14 @@ while run:
             if event.key == pygame.K_LEFT:
                 x -= 20
             if event.key == pygame.K_RIGHT:
-                x += 20
+                x += 20'''
 
         # aqui ele sai do loop quando aperta no "X"
         if event.type == pygame.QUIT:
             run = False
 
-    #redraw_background() # redesenhando a tela de fundo
-    #redraw_knight(x, y) # redesenhando o personagem na posição (x, y)
     
-    screen.blit(font.render(text, True, WHITE), [600, 0]) # desenhando o cronometro na tela
+    #screen.blit(font.render(text, True, WHITE), [600, 0]) # desenhando o cronometro na tela
 
     pygame.display.flip() # Atualizando a tela
     clock.tick(60) # aqui eu garanto que o programa fique rodando a 60 fps (ui que xiqui !!)
