@@ -1,29 +1,39 @@
 import pygame
+import sprites
+from all_sprites import *
 pygame.init()
+
 
 def redraw_background():
     screen.blit(background, (0, 0))
+
+
+def redraw_knight(x, y):
+    screen.blit(knight, (x, y))
+
 
 # função pra facilitar o carregamento da imagem
 def load_imagem(caminho):
     return pygame.image.load(caminho).convert_alpha()
 
-def redraw_knight(x, y):
-    screen.blit(knight, (x, y))
 
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+def change_sprite(ação, frame):
+    knight = load_imagem(ação[frame])
+    return knight
+# ação: se refere ao tipo de ação da lista de movimentos
+# frame: referente ao numero do sprite no dicionario
 
 largura = 800
 altura = 450
 screen = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Projeto Final')
 
-global knight
-background = load_imagem("sprites/battle.jpg")
-knight = load_imagem("sprites/Knight/knight.png")
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
-run = init = True
+global knight
+knight = load_imagem(s_inicial)
+background = load_imagem(s_background)
 
 # aqui eu estou setando um tempo de 1000 milisegundos para esse evento
 # ser chamado a cada segundo
@@ -37,11 +47,14 @@ counter, text = 180000, ' 03:00'.rjust(3) # 3 minutos equivale a 180.000 miliseg
 # Não lembro pq coloquei em milisegundos mas ta funcionando !!!! hehe
 
 x, y = 0, 300 # posição inicial do personagem
-x_speed = y_speed = 3
-ViraVira = 1
-lado = 1
+x_speed = y_speed = 2
+move_sprite = ViraVira = False
+lado = "right"
+frame = 0
 
 pressed_up = pressed_down = pressed_left = pressed_right = False
+
+run = init = True
 
 while run:
 
@@ -72,14 +85,8 @@ while run:
                 pressed_down = True
             if event.key == pygame.K_LEFT:
                 pressed_left = True
-                if lado == 1:
-                    ViraVira = -1
-                    lado = -1
             if event.key == pygame.K_RIGHT:
                 pressed_right = True
-                if lado == -1:
-                    ViraVira = -1
-                    lado = 1
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_UP:
@@ -97,19 +104,40 @@ while run:
 
     if pressed_up:
         y -= y_speed
+        move_sprite = True
+
     if pressed_down:
         y += y_speed
+        move_sprite = True
+
     if pressed_left:
         x -= x_speed
+        if lado == "right":
+            ViraVira = True
+            lado = "left"
+        move_sprite = True
+
     if pressed_right:
         x += x_speed
-
-    if ViraVira == -1:
-        knight = pygame.transform.flip(knight, True, False)
-    elif ViraVira == 1:
-        knight = pygame.transform.flip(knight, False, False)
+        if lado == "left":
+            ViraVira = True
+            lado = "right"
+        move_sprite = True
     
-    ViraVira = 1
+    if move_sprite == True:  # verifica se teve movimento 
+        if frame == 48:
+            frame = 0
+        else:
+            if frame % 8 == 0 or frame == 0:
+                knight = change_sprite(sprite_walk, frame)
+                if lado == "left":
+                    knight = pygame.transform.flip(knight, True, False)
+            frame += 1
+    move_sprite = False
+
+    if ViraVira == True:
+        knight = pygame.transform.flip(knight, True, False)
+        ViraVira = False
 
     redraw_background() # redesenhando a tela de fundo
     redraw_knight(x, y) # redesenhando o personagem na posição (x, y)
