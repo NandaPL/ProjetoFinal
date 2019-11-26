@@ -3,7 +3,7 @@
 Developers:
  
  
- Fernanda Pinto Lopes
+ Fernanda Pinto Lopes - fpl.snf19@uea.edu.br
  
  Murillo de Lima Acácio
  
