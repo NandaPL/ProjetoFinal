@@ -1,6 +1,14 @@
 caminho = "sprites/Knight/"
 
-s_background = "sprites/battle.jpg"
+s_background_game = "sprites/battle.jpg"
+s_background_menu = "sprites/background.jpg"
+s_background_credits = "sprites/background_credits.jpg"
+
+s_play = "sprites/play.png"
+s_credits = "sprites/credits.png"
+s_back = "sprites/back.png"
+
+s_cursor = "sprites/cursor.png"
 
 s_inicial = caminho+"knight.png"
 
@@ -15,9 +23,9 @@ sprite_walk = {
 
 sprite_attack = {
     0: caminho+"Attack/attack0.png",
-    1: caminho+"Attack/attack1.png",
-    2: caminho+"Attack/attack2.png",
-    3: caminho+"Attack/attack4.png"
+    8: caminho+"Attack/attack1.png",
+    16: caminho+"Attack/attack2.png",
+    24: caminho+"Attack/attack4.png"
 }
 
 sprite_death = {
@@ -31,4 +39,19 @@ sprite_death = {
     7: caminho+"death8.png",
     8: caminho+"death9.png",
     9: caminho+"death10.png"
+}
+
+sprite_idle = {
+    0: caminho+"Idle/idle1.png",
+    8: caminho+"Idle/idle2.png",
+    16: caminho+"Idle/idle3.png",
+    24: caminho+"Idle/idle4.png",
+    32: caminho+"Idle/idle5.png",
+    40: caminho+"Idle/idle6.png",
+    48: caminho+"Idle/idle7.png",
+    56: caminho+"Idle/idle8.png",
+    64: caminho+"Idle/idle9.png",
+    72: caminho+"Idle/idle10.png",
+    80: caminho+"Idle/idle11.png",
+    88: caminho+"Idle/idle12.png",
 }
