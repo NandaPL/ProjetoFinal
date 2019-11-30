@@ -1,4 +1,4 @@
-from vaijuninho import game
+from full_gameplay import game
 from show_credits import run_credits
 from all_sprites import *
 import sprites
@@ -8,11 +8,11 @@ pygame.init()
 width = 800
 height = 450
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Projeto Final')
+pygame.display.set_caption('Florest Viking')
 
 
 # função pra facilitar o carregamento da imagem
-def load_imagem(image):
+def load_image(image):
     return pygame.image.load(image).convert_alpha()
 
 
@@ -21,14 +21,15 @@ def redraw_knight(x, y):
 
 
 global knight
-knight = load_imagem(sprite_idle[0])
+knight = load_image(sprite_idle[0])
 frame = 0
 
 pygame.mouse. set_visible(False)
-cursor = load_imagem(s_cursor)
-button_play = load_imagem(s_play)
-button_credits = load_imagem(s_credits)
-back_menu = load_imagem(s_background_menu)
+cursor = load_image(s_cursor)
+button_play = load_image(s_play)
+button_credits = load_image(s_credits)
+back_menu = load_image(s_background_menu)
+name_game = load_image(n_game)
 
 
 WHITE = (255, 255, 255)
@@ -42,6 +43,7 @@ def menu():
     screen.blit(back_menu, (0, 0))
     play_press = screen.blit(button_play, (300, 200))
     credits_press = screen.blit(button_credits, (285, 350))
+    screen.blit(name_game, (200,50))
 
 
 run = True
@@ -75,7 +77,7 @@ while run:
         frame = 0
     if frame >= 0:
         if frame % 8 == 0 or frame == 0:
-            knight = load_imagem(sprite_idle[frame])
+            knight = load_image(sprite_idle[frame])
         frame += 1
     
     redraw_knight(50, 300)

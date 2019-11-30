@@ -5,8 +5,8 @@ pygame.init()
 def run_credits():
 
     # função pra facilitar o carregamento da imagem
-    def load_imagem(caminho):
-        return pygame.image.load(caminho).convert_alpha()
+    def load_image(image):
+        return pygame.image.load(image).convert_alpha()
 
     def redraw_background():
         screen.blit(background, (0, 0))
@@ -14,21 +14,21 @@ def run_credits():
     width = 800
     height = 450
     screen = pygame.display.set_mode((width, height))
-    pygame.display.set_caption('Projeto Final')
+    pygame.display.set_caption('Florest Viking')
 
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
 
-    background = load_imagem(s_background_menu)
-    button_back = load_imagem(s_back)
+    background = load_image(s_background_menu)
+    button_back = load_image(s_back)
     pygame.mouse. set_visible(False)
-    cursor = load_imagem(s_cursor)
+    cursor = load_image(s_cursor)
 
-    font = pygame.font.SysFont(None, 50)
+    font = pygame.font.SysFont(None, 23)
 
-    arquivo = open('credi.txt', 'r')
-    text = arquivo.readlines()
-    arquivo.close()
+    archive = open('credi.txt', 'r')
+    text = archive.readlines()
+    archive.close()
 
     run = True
     mouse_pressed = False
@@ -52,7 +52,7 @@ def run_credits():
         redraw_background()
 
         for i in range(len(text)):
-            screen.blit(font.render(text[i], True, BLACK), [70, (100 + i*40)])
+            screen.blit(font.render(text[i], True, WHITE), [94, (10 + i*40)])
 
         screen.blit(button_back, [0, 0])
 

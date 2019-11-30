@@ -7,8 +7,8 @@ pygame.init()
 def game():
 
     # função pra facilitar o carregamento da imagem
-    def load_imagem(caminho):
-        return pygame.image.load(caminho).convert_alpha()
+    def load_image(way):
+        return pygame.image.load(way).convert_alpha()
 
     def redraw_background():
         screen.blit(background, (0, 0))
@@ -16,26 +16,25 @@ def game():
     def redraw_knight(x, y):
         screen.blit(knight, (x, y))
 
-    def change_sprite(ação, pos):
-        knight = load_imagem(ação[pos])
+    def change_sprite(action, pos):
+        knight = load_image(action[pos])
         return knight
     # ação: se refere ao tipo de ação no "all_spritess"
     # pos: referente ao numero do sprite no dicionario
 
-    largura = 800
-    altura = 450
-    screen = pygame.display.set_mode((largura, altura))
-    pygame.display.set_caption('Projeto Final')
+    width = 800
+    height = 450
+    screen = pygame.display.set_mode((width, height))
 
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
 
     global knight
-    knight = load_imagem(s_inicial)
-    background = load_imagem(s_background_game)
-    button_back = load_imagem(s_back)
+    knight = load_image(s_inicial)
+    background = load_image(s_background_game)
+    button_back = load_image(s_back)
     pygame.mouse. set_visible(False)
-    cursor = load_imagem(s_cursor)
+    cursor = load_image(s_cursor)
 
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     font = pygame.font.SysFont('couriernew', 55)
@@ -44,8 +43,8 @@ def game():
 
     x, y = 0, 220  # posição inicial do personagem
     x_speed = y_speed = 2
-    move_sprite = ViraVira = False
-    lado = "right"
+    move_sprite = turn = False
+    side = "right"
     frame = 0
     f_attack = 0
 
@@ -60,15 +59,15 @@ def game():
             if event.type == pygame.USEREVENT:
                 counter -= 1000
                 if counter >= 0:
-                    minutos = int(counter/60000)
-                    segundos = int((counter/1000)-minutos*60)
+                    minutes = int(counter/60000)
+                    seconds = int((counter/1000)-minutes*60)
 
-                    minutos = str(minutos)
-                    segundos = str(segundos)
+                    minutes = str(minutes)
+                    seconds = str(seconds)
 
-                    if len(segundos) == 1:
-                        segundos = '0'+segundos
-                    text = '0'+minutos+":"+segundos
+                    if len(seconds) == 1:
+                        seconds = '0'+seconds
+                    text = '0'+minutes+":"+seconds
                 else:
                     text = 'boom!'
                     counter = 180000
@@ -121,16 +120,16 @@ def game():
 
             if pressed_left:
                 x -= x_speed
-                if lado == "right":
-                    ViraVira = True
-                    lado = "left"
+                if side == "right":
+                    turn = True
+                    side = "left"
                 move_sprite = True
 
             elif pressed_right:
                 x += x_speed
-                if lado == "left":
-                    ViraVira = True
-                    lado = "right"
+                if side == "left":
+                    turn = True
+                    side = "right"
                 move_sprite = True
 
         if move_sprite is True:  # verifica se teve movimento
@@ -139,30 +138,30 @@ def game():
             else:
                 if frame % 8 == 0 or frame == 0:
                     knight = change_sprite(sprite_walk, frame)
-                    if lado == "left":
+                    if side == "left":
                         knight = pygame.transform.flip(knight, True, False)
                 frame += 1
         move_sprite = False
 
-        if ViraVira is True:
+        if turn is True:
             knight = pygame.transform.flip(knight, True, False)
-            if lado == "right":
+            if side == "right":
                 x += 25
-            if lado == "left":
+            if side == "left":
                 x -= 25
-            ViraVira = False
+            turn = False
 
         if pressed_attack is True:
             if f_attack == 32:
                 f_attack = 0
                 pressed_attack = False
-                knight = load_imagem(s_inicial)
-                if lado == "left":
+                knight = load_image(s_inicial)
+                if side == "left":
                     knight = pygame.transform.flip(knight, True, False)
             else:
                 if f_attack % 8 == 0 or f_attack == 0:
                     knight = change_sprite(sprite_attack, f_attack)
-                    if lado == "left":
+                    if side == "left":
                         knight = pygame.transform.flip(knight, True, False)
                 f_attack += 1
 

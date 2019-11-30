@@ -1,5 +1,13 @@
+    UNIVERSIDADE DO ESTADO DO AMAZONAS - UEA
+     BACHARELADO EM SISTEMAS DE INFORMAÇÃO
+   LABORATÓRIO DE PROGRAMAÇÃO DE COMPUTADORES
+            PROF.DR. JUCIMAR JR
 Developers:
+          Murillo de Lima Acácio
+           Fernanda Pinto Lopes
+         Vanessa de Souza Câmara
+Knight: https://craftpix.net/freebies/assassin-mage-viking-free-pixel-art-game-heroes/
+Backgrounds: https://craftpix.net/freebies/free-pixel-art-fantasy-2d-battlegrounds/
+    https://craftpix.net/freebies/free-cartoon-forest-game-backgrounds/
+Buttons: https://pt.cooltext.com/Logo-Design-Tough
 
-Murillo de Lima Acácio
-Fernanda Pinto Lopes
-Vanessa de Souza Câmara
