@@ -3,9 +3,9 @@
    LABORATÓRIO DE PROGRAMAÇÃO DE COMPUTADORES
             PROF.DR. JUCIMAR JR
 Developers:
-          Murillo de Lima Acácio
-           Fernanda Pinto Lopes
-         Vanessa de Souza Câmara
+          Murillo de Lima Acácio - Main Developer
+           Fernanda Pinto Lopes - Developer
+         Vanessa de Souza Câmara - Developer
 Knight: https://craftpix.net/freebies/assassin-mage-viking-free-pixel-art-game-heroes/
 Backgrounds: https://craftpix.net/freebies/free-pixel-art-fantasy-2d-battlegrounds/
     https://craftpix.net/freebies/free-cartoon-forest-game-backgrounds/
