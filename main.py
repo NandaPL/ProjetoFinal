@@ -8,7 +8,7 @@ pygame.init()
 width = 800
 height = 450
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Florest Viking')
+pygame.display.set_caption('Forest Viking')
 
 
 # função pra facilitar o carregamento da imagem
