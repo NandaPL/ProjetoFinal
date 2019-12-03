@@ -6,6 +6,10 @@ pygame.init()
 
 def game():
 
+    global lifes
+
+    lifes = 3
+
     # função pra facilitar o carregamento da imagem
     def load_image(way):
         return pygame.image.load(way).convert_alpha()
@@ -35,6 +39,7 @@ def game():
     button_back = load_image(s_back)
     pygame.mouse. set_visible(False)
     cursor = load_image(s_cursor)
+    life = load_image(s_life)
 
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     font = pygame.font.SysFont('couriernew', 55)
@@ -53,7 +58,6 @@ def game():
 
     run = init = True
 
-    life = load_image(s_life)
 
     while run:
         
@@ -172,9 +176,19 @@ def game():
         
         screen.blit(font.render(text, True, WHITE), [600, 0])  # desenhando o cronometro na tela na posição (600, 0)
         screen.blit(button_back, [0, 381])
+        l1 = life
+        l2 = life
+        l3 = life
 
-        screen.blit(life, [0, 0])
+        list_life = [l1, l2, l3]
 
+        pos = 1
+        a = 0 
+        screen.blit(list_life[0], [0, 0])
+        for pos in range(len(list_life) - 1):
+            a = a + 65
+            screen.blit(list_life[pos], [a, 0])
+        
         if pygame.mouse. get_focused():
             mouse = pygame.mouse.get_pos()
             screen.blit(cursor, mouse)
