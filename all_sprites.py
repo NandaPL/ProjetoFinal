@@ -1,5 +1,7 @@
 way = "sprites/Knight/"
 
+s_life = "sprites/life.png"
+
 n_game = "sprites/name.png"
 
 s_background_game = "sprites/battle.jpg"

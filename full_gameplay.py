@@ -53,8 +53,10 @@ def game():
 
     run = init = True
 
-    while run:
+    life = load_image(s_life)
 
+    while run:
+        
         for event in pygame.event.get():
             if event.type == pygame.USEREVENT:
                 counter -= 1000
@@ -167,9 +169,11 @@ def game():
 
         redraw_background()  # redesenhando a tela de fundo
         redraw_knight(x, y)  # redesenhando o personagem na posição (x, y)
-
+        
         screen.blit(font.render(text, True, WHITE), [600, 0])  # desenhando o cronometro na tela na posição (600, 0)
-        screen.blit(button_back, [0, 0])
+        screen.blit(button_back, [0, 381])
+
+        screen.blit(life, [0, 0])
 
         if pygame.mouse. get_focused():
             mouse = pygame.mouse.get_pos()
