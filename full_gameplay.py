@@ -118,8 +118,8 @@ def game():
 
         if mouse_pressed is True:
             mouse = pygame.mouse. get_pos()
-            if mouse[0] > 20 and mouse[0] < 100:
-                if mouse[1] > 21 and mouse[1] < 48:
+            if mouse[0] > 14 and mouse[0] < 95:
+                if mouse[1] > 395 and mouse[1] < 426:
                     run = False
             mouse_pressed = False
 
