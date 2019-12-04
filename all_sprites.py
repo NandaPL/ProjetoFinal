@@ -1,7 +1,7 @@
 way = "sprites/Knight/"
 way2 = "sprites/golems/"
 
-lost = "sprite/lost.png"
+lost = "sprites/lost.png"
 
 win = "sprites/win.png"
 
