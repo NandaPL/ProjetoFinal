@@ -1,6 +1,7 @@
 import pygame
 import sprites
 from all_sprites import *
+from random import randint
 pygame.init()
 
 
@@ -42,6 +43,8 @@ def game():
     list_inimigo = [inimigo]
     ind_inimigo = [8]
     pos_inimigo = [(400, 300)]
+    pos_spawn = [[-20, 300], [-20, 500], [900, 300], [900, 500]]
+    time_spawn = 0
 
     background = load_image(s_background_game)
     button_back = load_image(s_back)
@@ -71,6 +74,16 @@ def game():
         
         for event in pygame.event.get():
             if event.type == pygame.USEREVENT:
+
+                while len(list_inimigo) < 4:
+                    time_spawn += 1
+                    if time_spawn > 3:
+                        inimigo2 = load_image(sprite_golem_walk[1])
+                        list_inimigo.append(inimigo2)
+                        ind_inimigo.append(8)
+                        pos_inimigo.append(pos_spawn[randint(0, 3)])
+                        time_spawn = 0
+
                 counter -= 1000
                 if counter >= 0:
                     minutes = int(counter/60000)
@@ -180,6 +193,41 @@ def game():
                 f_attack += 1
 
         for i in range(len(list_inimigo)):
+            if pos_inimigo[i][0] != x or pos_inimigo[i][1] != y:
+
+                velo_golem = 0.3
+
+                if pos_inimigo[i][0] > x:
+                    if pos_inimigo[i][1] < y:
+                        pos_inimigo[i][0] -= velo_golem
+                        pos_inimigo[i][1] += velo_golem
+
+                    if pos_inimigo[i][1] > y:
+                        pos_inimigo[i][0] -= velo_golem
+                        pos_inimigo[i][1] -= velo_golem
+
+                elif pos_inimigo[i][0] < x:
+                    if pos_inimigo[i][1] < y:
+                        pos_inimigo[i][0] += velo_golem
+                        pos_inimigo[i][1] += velo_golem
+
+                    if pos_inimigo[i][1] > y:
+                        pos_inimigo[i][0] += velo_golem
+                        pos_inimigo[i][1] -= velo_golem
+                
+                elif pos_inimigo[i][0] == x:
+                    if y - pos_inimigo[i][1] > 0:
+                        pos_inimigo[i][1] += velo_golem
+                    if y - pos_inimigo[i][1] < 0:
+                        pos_inimigo[i][1] -= velo_golem
+
+                elif pos_inimigo[i][1] == y:
+                    if x - pos_inimigo[i][0] > 0:
+                        pos_inimigo[i][0] += velo_golem
+                    if x - pos_inimigo[i][0] < 0:
+                        pos_inimigo[i][0] -= velo_golem
+
+        for i in range(len(list_inimigo)):
             if ind_inimigo[i] == 48:
                 ind_inimigo[i] = 8
             if ind_inimigo[i] >= 8:
@@ -189,7 +237,8 @@ def game():
 
         redraw_background()  # redesenhando a tela de fundo
         redraw_knight(x, y)  # redesenhando o personagem na posição (x, y)
-        
+        for i in range(len(pos_inimigo)):
+            screen.blit(list_inimigo[i], pos_inimigo[i])
         screen.blit(font.render(text, True, WHITE), [600, 0])  # desenhando o cronometro na tela na posição (600, 0)
 
         l1 = life
@@ -207,9 +256,6 @@ def game():
             screen.blit(list_life[pos], [a, 0])
         
         screen.blit(button_back, [0, 381])
-
-        for i in range(len(pos_inimigo)):
-            screen.blit(list_inimigo[i], pos_inimigo[i])
 
         if pygame.mouse. get_focused():
             mouse = pygame.mouse.get_pos()
