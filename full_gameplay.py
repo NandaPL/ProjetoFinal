@@ -42,7 +42,7 @@ def game():
 
     list_inimigo = [inimigo]
     ind_inimigo = [8]
-    pos_inimigo = [(400, 300)]
+    pos_inimigo = [[400, 300]]
     pos_spawn = [[-20, 300], [-20, 500], [900, 300], [900, 500]]
     time_spawn = 0
 
