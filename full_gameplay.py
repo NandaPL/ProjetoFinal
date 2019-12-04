@@ -1,6 +1,7 @@
 import pygame
 import sprites
 from all_sprites import *
+from show_credits import run_credits
 from random import randint
 pygame.init()
 
@@ -63,6 +64,9 @@ def game():
     side = "right"
     frame = 8
     f_attack = 0
+
+    loser = load_image(lost)
+    winner = load_image(win)
 
     pressed_up = pressed_down = pressed_left = pressed_right = pressed_attack = False
     mouse_pressed = False
@@ -254,7 +258,17 @@ def game():
         for pos in range(len(list_life) - 1):
             a = a + 35
             screen.blit(list_life[pos], [a, 0])
-        
+
+        if lifes == 0:
+            screen.blit(loser, [200, 50])
+        else:
+            for i in range(3):
+                list_life.remove(-1)
+
+        if minutes == 0 and seconds == 0 and lifes > 0:
+            screen.blit(winner, [200, 50])
+            run_credits()
+
         screen.blit(button_back, [0, 381])
 
         if pygame.mouse. get_focused():

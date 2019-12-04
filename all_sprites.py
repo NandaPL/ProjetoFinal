@@ -1,6 +1,10 @@
 way = "sprites/Knight/"
 way2 = "sprites/golems/"
 
+lost = "sprite/lost.png"
+
+win = "sprites/win.png"
+
 s_life = "sprites/life.png"
 
 n_game = "sprites/name.png"
