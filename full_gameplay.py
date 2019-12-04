@@ -252,7 +252,7 @@ def game():
         screen.blit(list_life[0], [0, 0])
 
         for pos in range(len(list_life) - 1):
-            a = a + 65
+            a = a + 35
             screen.blit(list_life[pos], [a, 0])
         
         screen.blit(button_back, [0, 381])
