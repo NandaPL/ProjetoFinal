@@ -21,8 +21,8 @@ def redraw_knight(x, y):
 
 
 global knight
-knight = load_image(sprite_idle[0])
-frame = 0
+knight = load_image(sprite_idle[1])
+frame = 8
 
 pygame.mouse. set_visible(False)
 cursor = load_image(s_cursor)
@@ -74,18 +74,19 @@ while run:
         button_pressed = False
 
     if frame == 96:
-        frame = 0
-    if frame >= 0:
-        if frame % 8 == 0 or frame == 0:
-            knight = load_image(sprite_idle[frame])
-        frame += 1
+        frame = 8
+    if frame >= 8:
+        if frame % 8 == 0:
+            knight = load_image(sprite_idle[int (frame/8)])
+    frame += 1
     
     redraw_knight(50, 300)
+    redraw_knight(650, 300)
 
     if pygame.mouse. get_focused():
         mouse = pygame.mouse.get_pos()
         screen.blit(cursor, mouse)
-    
+
     pygame.display.flip()
     clock.tick(60)
 

@@ -48,10 +48,15 @@ def run_credits():
                     run = False
             mouse_pressed = False
         
-        redraw_background()
+        screen.fill(BLACK) # deixa o fundo preto
 
-        for i in range(len(text)):
-            screen.blit(font.render(text[i], True, WHITE), [94, (10 + i*40)])
+        if height < -480:
+            height = 450
+
+        if (height > -480):
+            for i in range(len(text)):
+                screen.blit(font.render(text[i], True, WHITE), [150, (height + 20 + (i*40))])
+            height -= 0.05
 
         screen.blit(button_back, [0, 0])
 
