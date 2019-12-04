@@ -155,7 +155,7 @@ def game():
                     run = False
             mouse_pressed = False
 
-        if lifes > 0:
+        if lifes > 0 and lifes != 4:
 
             if pressed_attack is False:
                 if pressed_up:
@@ -293,11 +293,15 @@ def game():
         b = 0
 
         for i in range(lifes):
-            a = a + 33
-            screen.blit(life, [a, b])
+            if lifes != 4:
+                a = a + 33
+                screen.blit(life, [a, b])
         
         if lifes == 0:
             screen.blit(derrota, [100, 200])
+
+        if lifes == 4:
+            screen.blit(vitoria, [20, 200])
 
         screen.blit(button_back, [0, 381])
 
