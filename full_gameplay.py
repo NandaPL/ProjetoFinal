@@ -7,8 +7,6 @@ pygame.init()
 
 
 def game():
-    
-    lifes = 3
 
     # função pra facilitar o carregamento da imagem
     def load_image(way):
@@ -46,12 +44,15 @@ def game():
     pos_inimigo = [[400, 300]]
     pos_spawn = [[-20, 300], [-20, 500], [900, 300], [900, 500]]
     time_spawn = 0
+    largura_inimigo = 36
+    altura_inimigo = 59
+    inimigo_rect = pygame.Rect(400, 300, largura_inimigo, altura_inimigo)
+
 
     background = load_image(s_background_game)
     button_back = load_image(s_back)
     pygame.mouse. set_visible(False)
     cursor = load_image(s_cursor)
-    life = load_image(s_life)
     winner = load_image(win)
 
     pygame.time.set_timer(pygame.USEREVENT, 1000)
@@ -65,6 +66,11 @@ def game():
     side = "right"
     frame = 8
     f_attack = 0
+    largura = 38
+    altura = 58
+
+    knight_rect = pygame.Rect(x, y, largura, altura)
+    list_inimigo_rect = [inimigo_rect]
 
     pressed_up = pressed_down = pressed_left = pressed_right = pressed_attack = False
     mouse_pressed = False
@@ -77,13 +83,20 @@ def game():
         for event in pygame.event.get():
             if event.type == pygame.USEREVENT:
 
-                while len(list_inimigo) < 4:
+                if len(list_inimigo) < 4:
                     time_spawn += 1
                     if time_spawn > 3:
                         inimigo2 = load_image(sprite_golem_walk[1])
+
                         list_inimigo.append(inimigo2)
                         ind_inimigo.append(8)
-                        pos_inimigo.append(pos_spawn[randint(0, 3)])
+
+                        posicao = randint(0, 3)
+
+                        pos_inimigo.append(pos_spawn[posicao])
+
+                        inimigo_rect2 = pygame.Rect(pos_inimigo[-1][0], pos_inimigo[-1][1], largura_inimigo, altura_inimigo)
+                        list_inimigo_rect.append(inimigo_rect2)
                         time_spawn = 0
 
                 counter -= 1000
@@ -97,9 +110,7 @@ def game():
                     if len(seconds) == 1:
                         seconds = '0'+seconds
                     text = '0'+minutes+":"+seconds
-                else:
-                    text = 'boom!'
-                    counter = 180000
+                
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pressed = True
@@ -130,6 +141,7 @@ def game():
             # aqui ele sai do loop quando aperta no "X"
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
 
         if mouse_pressed is True:
             mouse = pygame.mouse. get_pos()
@@ -160,6 +172,7 @@ def game():
                     turn = True
                     side = "right"
                 move_sprite = True
+            knight_rect = pygame.Rect(x, y, largura, altura)
 
         if turn is True:
             knight = pygame.transform.flip(knight, True, False)
@@ -193,41 +206,57 @@ def game():
                     if side == "left":
                         knight = pygame.transform.flip(knight, True, False)
                 f_attack += 1
+            for i in range(len(list_inimigo_rect)):
+                if knight_rect.colliderect(list_inimigo_rect[i]):
+                    list_inimigo.pop(i)
+                    list_inimigo_rect.pop(i)
+                    pos_inimigo.pop(i)
+                    ind_inimigo.pop(i)
+                    break
 
         for i in range(len(list_inimigo)):
             if pos_inimigo[i][0] != x or pos_inimigo[i][1] != y:
 
                 velo_golem = 0.3
 
-                if pos_inimigo[i][0] > x:
-                    if pos_inimigo[i][1] < y:
+                if pos_inimigo[i][0] > x + 20:
+                    if pos_inimigo[i][1] < y + 20:
                         pos_inimigo[i][0] -= velo_golem
                         pos_inimigo[i][1] += velo_golem
+                        list_inimigo_rect[i] = pygame.Rect(pos_inimigo[i][0], pos_inimigo[i][1], largura_inimigo, altura_inimigo)
 
-                    if pos_inimigo[i][1] > y:
+                    if pos_inimigo[i][1] > y + 20:
                         pos_inimigo[i][0] -= velo_golem
                         pos_inimigo[i][1] -= velo_golem
+                        list_inimigo_rect[i] = pygame.Rect(pos_inimigo[i][0], pos_inimigo[i][1], largura_inimigo, altura_inimigo)
 
-                elif pos_inimigo[i][0] < x:
-                    if pos_inimigo[i][1] < y:
+                elif pos_inimigo[i][0] < x + 20:
+                    if pos_inimigo[i][1] < y + 20:
                         pos_inimigo[i][0] += velo_golem
                         pos_inimigo[i][1] += velo_golem
+                        list_inimigo_rect[i] = pygame.Rect(pos_inimigo[i][0], pos_inimigo[i][1], largura_inimigo, altura_inimigo)
 
-                    if pos_inimigo[i][1] > y:
+                    if pos_inimigo[i][1] > y + 20:
                         pos_inimigo[i][0] += velo_golem
                         pos_inimigo[i][1] -= velo_golem
+                        list_inimigo_rect[i] = pygame.Rect(pos_inimigo[i][0], pos_inimigo[i][1], largura_inimigo, altura_inimigo)
                 
                 elif pos_inimigo[i][0] == x:
                     if y - pos_inimigo[i][1] > 0:
                         pos_inimigo[i][1] += velo_golem
+                        list_inimigo_rect[i] = pygame.Rect(pos_inimigo[i][0], pos_inimigo[i][1], largura_inimigo, altura_inimigo)
+
                     if y - pos_inimigo[i][1] < 0:
                         pos_inimigo[i][1] -= velo_golem
+                        list_inimigo_rect[i] = pygame.Rect(pos_inimigo[i][0], pos_inimigo[i][1], largura_inimigo, altura_inimigo)
 
                 elif pos_inimigo[i][1] == y:
                     if x - pos_inimigo[i][0] > 0:
                         pos_inimigo[i][0] += velo_golem
+                        list_inimigo_rect[i] = pygame.Rect(pos_inimigo[i][0], pos_inimigo[i][1], largura_inimigo, altura_inimigo)
                     if x - pos_inimigo[i][0] < 0:
                         pos_inimigo[i][0] -= velo_golem
+                        list_inimigo_rect[i] = pygame.Rect(pos_inimigo[i][0], pos_inimigo[i][1], largura_inimigo, altura_inimigo)
 
         for i in range(len(list_inimigo)):
             if ind_inimigo[i] == 48:
@@ -243,24 +272,9 @@ def game():
             screen.blit(list_inimigo[i], pos_inimigo[i])
         screen.blit(font.render(text, True, WHITE), [600, 0])  # desenhando o cronometro na tela na posição (600, 0)
 
-        l1 = life
-        l2 = life
-        l3 = life
+        
 
-        list_life = [l1, l2, l3]
-
-        pos = 1
-        a = 0 
-        screen.blit(list_life[0], [0, 0])
-
-        for pos in range(len(list_life) - 1):
-            a = a + 35
-            screen.blit(list_life[pos], [a, 0])
-
-        if lifes < 3:
-                list_life.remove(-1)
-
-        if counter == 0 and lifes > 0:
+        if counter == 0:
             run_credits()
 
         screen.blit(button_back, [0, 381])
