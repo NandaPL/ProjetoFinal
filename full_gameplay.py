@@ -7,9 +7,7 @@ pygame.init()
 
 
 def game():
-
-    global lifes
-
+    
     lifes = 3
 
     # função pra facilitar o carregamento da imagem
@@ -41,6 +39,8 @@ def game():
     global inimigo
     inimigo = load_image(sprite_golem_walk[1])
 
+    
+
     list_inimigo = [inimigo]
     ind_inimigo = [8]
     pos_inimigo = [[400, 300]]
@@ -52,6 +52,7 @@ def game():
     pygame.mouse. set_visible(False)
     cursor = load_image(s_cursor)
     life = load_image(s_life)
+    winner = load_image(win)
 
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     font = pygame.font.SysFont('couriernew', 55)
@@ -64,9 +65,6 @@ def game():
     side = "right"
     frame = 8
     f_attack = 0
-
-    loser = load_image(lost)
-    winner = load_image(win)
 
     pressed_up = pressed_down = pressed_left = pressed_right = pressed_attack = False
     mouse_pressed = False
@@ -259,14 +257,10 @@ def game():
             a = a + 35
             screen.blit(list_life[pos], [a, 0])
 
-        if lifes == 0:
-            screen.blit(loser, [200, 50])
-        else:
-            for i in range(3):
+        if lifes < 3:
                 list_life.remove(-1)
 
-        if minutes == 0 and seconds == 0 and lifes > 0:
-            screen.blit(winner, [200, 50])
+        if counter == 0 and lifes > 0:
             run_credits()
 
         screen.blit(button_back, [0, 381])
